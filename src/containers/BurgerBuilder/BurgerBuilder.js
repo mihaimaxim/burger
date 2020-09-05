@@ -89,7 +89,7 @@ class BurgerBuilder extends Component {
       };
 
       axios
-         .post('orders.jso', order)
+         .post('orders.json', order)
          .then((response) => {
             this.setState({ loading: false, purchasing: false });
          })
