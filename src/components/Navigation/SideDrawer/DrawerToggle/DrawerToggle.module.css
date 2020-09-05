@@ -1,0 +1,53 @@
+.DrawerToggle {
+   width: 40px;
+   height: 100%;
+   display: flex;
+   flex-flow: column;
+   justify-content: space-around;
+   align-items: center;
+   padding: 10px 0;
+   box-sizing: border-box;
+   cursor: pointer;
+}
+
+.DrawerToggle div:first-child {
+   width: 90%;
+   height: 3px;
+   background-color: #c15711;
+}
+
+.DrawerToggle div:nth-child(2) {
+   width: 90%;
+   height: 3px;
+   background-color: #228c1d;
+}
+
+.DrawerToggle div:nth-child(3) {
+   width: 90%;
+   height: 3px;
+   background-color: #bf3813;
+}
+
+.DrawerToggle div:nth-child(4) {
+   width: 90%;
+   height: 3px;
+   background-color: #f4d004;
+}
+
+.DrawerToggle div:nth-child(5) {
+   width: 90%;
+   height: 3px;
+   background-color: #7f3608;
+}
+
+.DrawerToggle div:last-of-type {
+   width: 90%;
+   height: 3px;
+   background-color: #c15711;
+}
+
+@media (min-width: 500px) {
+   .DrawerToggle {
+      display: none;
+   }
+}

@@ -1,0 +1,9 @@
+.Logo {
+   background-color: inherit;
+   height: 100%;
+}
+
+.Logo img {
+   height: 75%;
+   padding: 9px;
+}
