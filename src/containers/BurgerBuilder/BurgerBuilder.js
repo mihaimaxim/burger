@@ -81,24 +81,6 @@ class BurgerBuilder extends Component {
    };
 
    confirmationPurchasingHandler = () => {
-      // this.setState({ loading: true });
-
-      // const order = {
-      //    type: 'double cheeseburger',
-      //    ingredients: this.state.ingredients,
-      //    price: this.state.totalPrice,
-      // };
-
-      // axios
-      //    .post('orders.json', order)
-      //    .then((response) => {
-      //       this.setState({ loading: false, purchasing: false });
-      //    })
-      //    .catch((error) => {
-      //       this.setState({ loading: false, purchasing: false });
-      //    });
-
-      // this.setState({ purchasing: false });
       const queryParams = [];
       for (let i in this.state.ingredients) {
          queryParams.push(
@@ -107,6 +89,7 @@ class BurgerBuilder extends Component {
                encodeURIComponent(this.state.ingredients[i])
          );
       }
+      queryParams.push('price=' + this.state.totalPrice);
       // console.log(queryParams);
       const queryString = queryParams.join('&');
       this.props.history.push({
