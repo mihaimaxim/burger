@@ -37,9 +37,10 @@ class BurgerBuilder extends Component {
    };
 
    componentDidMount() {
-      console.log(this.props);
+      // console.log(this.props);
       axios.get('ingredients.json').then((response) => {
          this.setState({ ingredients: response.data });
+         console.log(this.state.ingredients);
       });
    }
 
@@ -130,9 +131,9 @@ class BurgerBuilder extends Component {
    };
 
    componentDidUpdate() {
-      console.log(
-         '[BurgerBuilder.js] Purchasable is ' + this.state.purchasable
-      );
+      // console.log(
+      //    '[BurgerBuilder.js] Purchasable is ' + this.state.purchasable
+      // );
    }
 
    render() {

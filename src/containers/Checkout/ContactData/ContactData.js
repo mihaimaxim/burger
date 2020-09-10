@@ -18,6 +18,10 @@ class ContactData extends Component {
       purchasing: false,
    };
 
+   componentDidMount() {
+      console.log(this.state);
+   }
+
    orderHandler = (event) => {
       event.preventDefault();
 
@@ -33,6 +37,7 @@ class ContactData extends Component {
          .post('orders.json', order)
          .then((response) => {
             this.setState({ loading: false });
+            this.props.history.push('/');
          })
          .catch((error) => {
             this.setState({ loading: false });
@@ -73,10 +78,6 @@ class ContactData extends Component {
             </Button>
          </form>
       );
-   };
-
-   renderSpinner = () => {
-      return <Spinner />;
    };
 
    render() {
