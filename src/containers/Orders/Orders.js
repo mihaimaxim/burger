@@ -18,10 +18,10 @@ class Orders extends Component {
             for (let key in response.data) {
                fetchedOrders.push({
                   ...response.data[key],
-                  // id: key,
+                  id: key,
                });
             }
-            console.log(fetchedOrders);
+            // console.log(fetchedOrders);
             this.setState({ loading: false, orders: fetchedOrders });
          })
          .catch((error) => {

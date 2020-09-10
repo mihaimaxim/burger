@@ -11,6 +11,8 @@ const Order = (props) => {
       });
    }
 
+   // console.log(tranformedIngredients);
+
    const ingredientOutput = tranformedIngredients.map((ing) => {
       return (
          <span key={ing.name}>
