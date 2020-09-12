@@ -30,3 +30,8 @@
    border: 1px solid salmon;
    background-color: moccasin;
 }
+
+.ValidationError {
+   color: orangered;
+   margin: 5px 0;
+}

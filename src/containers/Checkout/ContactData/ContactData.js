@@ -12,6 +12,7 @@ class ContactData extends Component {
       orderForm: {
          name: {
             elementType: 'input',
+            valueType: 'name',
             elementConfig: {
                type: 'text',
                placeholder: 'Your name',
@@ -27,6 +28,7 @@ class ContactData extends Component {
          },
          address: {
             elementType: 'input',
+            valueType: 'address',
             elementConfig: {
                type: 'text',
                placeholder: 'Your address',
@@ -42,6 +44,7 @@ class ContactData extends Component {
          },
          email: {
             elementType: 'input',
+            valueType: 'e-mail',
             elementConfig: {
                type: 'text',
                placeholder: 'Your e-mail',
@@ -49,6 +52,9 @@ class ContactData extends Component {
             value: '',
             validation: {
                required: true,
+               email: new RegExp([
+                  "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$",
+               ]),
             },
             valid: false,
             touched: false,
@@ -79,6 +85,7 @@ class ContactData extends Component {
       },
       formIsValid: false,
       loading: false,
+      errorMessage: 'Please enter a valid',
    };
 
    // componentDidMount() {
@@ -86,7 +93,7 @@ class ContactData extends Component {
    // }
 
    componentDidUpdate() {
-      console.log(this.state);
+      // console.log(this.state);
    }
 
    orderHandler = (event) => {
@@ -125,7 +132,23 @@ class ContactData extends Component {
       let isValid = true;
 
       if (!rules) {
-         return true;
+         return true && isValid;
+      }
+
+      // if (!rules.email) {
+      //    return true;
+      // }
+
+      // if (
+      //    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+      //       myForm.emailAddr.value
+      //    )
+      // ) {
+      //    return true;
+      // }
+
+      if (rules.email) {
+         isValid = rules.email.test(value) && isValid;
       }
 
       if (rules.required) {
@@ -158,7 +181,7 @@ class ContactData extends Component {
       );
       updatedFormElement.touched = true;
       updatedOrderForm[inputIdentifier] = updatedFormElement;
-      console.log(updatedFormElement);
+      // console.log(updatedFormElement);
       let formIsValid = true;
       for (let inputIdentifier in updatedOrderForm) {
          formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
@@ -171,6 +194,7 @@ class ContactData extends Component {
       for (let key in this.state.orderForm) {
          formElementsArray.push({
             id: key,
+            errorMessage: this.state.errorMessage,
             config: this.state.orderForm[key],
          });
       }
@@ -188,6 +212,8 @@ class ContactData extends Component {
                   invalid={!formElement.config.valid}
                   shouldValidate={formElement.config.validation}
                   touched={formElement.config.touched}
+                  valueType={formElement.config.valueType}
+                  errorMessage={formElement.errorMessage}
                />
             ))}
             <Button btnType='Success' disabled={!this.state.formIsValid}>
