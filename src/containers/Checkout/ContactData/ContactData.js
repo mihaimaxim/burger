@@ -20,8 +20,9 @@ class ContactData extends Component {
             value: '',
             validation: {
                required: true,
+               nameValidation: /^[A-Za-z\s]+$/,
                minimumLength: 6,
-               maximumLength: 9,
+               maximumLength: 30,
             },
             valid: false,
             touched: false,
@@ -36,8 +37,8 @@ class ContactData extends Component {
             value: '',
             validation: {
                required: true,
-               minimumLength: 6,
-               maximumLength: 9,
+               minimumLength: 3,
+               addressValidation: /^[a-zA-Z0-9\s,'-]*$/,
             },
             valid: false,
             touched: false,
@@ -135,32 +136,28 @@ class ContactData extends Component {
          return true && isValid;
       }
 
-      // if (!rules.email) {
-      //    return true;
-      // }
+      if (rules.required) {
+         isValid = value !== '' && isValid;
+      }
 
-      // if (
-      //    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-      //       myForm.emailAddr.value
-      //    )
-      // ) {
-      //    return true;
-      // }
+      if (rules.nameValidation) {
+         isValid = rules.nameValidation.test(value) && isValid;
+      }
+
+      if (rules.addressValidation) {
+         isValid = rules.addressValidation.test(value) && isValid;
+      }
 
       if (rules.email) {
          isValid = rules.email.test(value) && isValid;
       }
 
-      if (rules.required) {
-         isValid = value.trim() !== '' && isValid;
-      }
-
       if (rules.minimumLength) {
-         isValid = value.length >= rules.minimumLength && isValid; // for this each orderFrom validation property should have
+         isValid = value.length > rules.minimumLength && isValid; // for this each orderFrom validation property should have
       } // a minimumLength property with the desired value
 
       if (rules.maximumLength) {
-         isValid = value.length <= rules.maximumLength && isValid; // && isValid added so that all checks work togheter
+         isValid = value.length < rules.maximumLength && isValid; // && isValid added so that all checks work togheter
       }
 
       return isValid;
