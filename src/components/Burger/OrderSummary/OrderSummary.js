@@ -5,7 +5,7 @@ import Button from '../../UI/Button/Button';
 class OrderSummary extends Component {
    // This could also be a functional component, being wrapped by the Modal class
    componentDidUpdate() {
-      console.log('[OrderSummary] didUpdate');
+      // console.log('[OrderSummary] didUpdate');
    }
 
    // renderIngredientSummary = () => {
