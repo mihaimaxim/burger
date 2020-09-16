@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from '../BuildControl/BuildControl.module.css';
 
-const BuildControl = (props) => {
+const BuildControl = props => {
    return (
       <div className={styles.BuildControl}>
          <div className={styles.Label}>{props.label}</div>

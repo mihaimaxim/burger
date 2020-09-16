@@ -1,14 +1,14 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router-dom';
 
 import styles from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
-const Burger = (props) => {
-   // console.log(props);
+const Burger = props => {
+   console.log(props.ingredients);
 
    let transformedIngredients = Object.keys(props.ingredients)
-      .map((ingredientKey) => {
+      .map(ingredientKey => {
          return [...Array(props.ingredients[ingredientKey])].map(
             (undefinedValue, i) => {
                return (
@@ -39,4 +39,5 @@ const Burger = (props) => {
    );
 };
 
-export default withRouter(Burger);
+// export default withRouter(Burger);
+export default Burger;

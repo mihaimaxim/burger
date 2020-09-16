@@ -10,13 +10,13 @@ const controls = [
    { label: 'Meat', type: 'meat' },
 ];
 
-const BuildControls = (props) => {
+const BuildControls = props => {
    return (
       <div className={styles.BuildControls}>
          <p>
             Current price: <strong>{props.price.toFixed(2)}</strong>
          </p>
-         {controls.map((ctrl) => {
+         {controls.map(ctrl => {
             return (
                <BuildControl
                   key={ctrl.label}
