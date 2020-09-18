@@ -6,6 +6,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import InputComp from '../../../components/UI/Input/Input';
 
 import classes from './ContactData.module.css';
+import { connect } from 'react-redux';
 
 class ContactData extends Component {
    state = {
@@ -111,8 +112,8 @@ class ContactData extends Component {
       }
 
       const order = {
-         ingredients: this.props.ingredients,
-         price: this.props.price,
+         ingredients: this.props.localIngredients,
+         price: this.props.localPrice,
          orderData: formData,
       };
 
@@ -203,9 +204,7 @@ class ContactData extends Component {
                   elementConfig={formElement.config.elementConfig}
                   value={formElement.config.value}
                   key={formElement.id}
-                  changed={event =>
-                     this.inputChangedHandler(event, formElement.id)
-                  }
+                  changed={event => this.inputChangedHandler(event, formElement.id)}
                   invalid={!formElement.config.valid}
                   shouldValidate={formElement.config.validation}
                   touched={formElement.config.touched}
@@ -230,4 +229,11 @@ class ContactData extends Component {
    }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+   return {
+      localIngredients: state.ingredients,
+      localPrice: state.price,
+   };
+};
+
+export default connect(mapStateToProps)(ContactData);
