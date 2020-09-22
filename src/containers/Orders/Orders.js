@@ -1,32 +1,26 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-import Order from '../../components/Order/Order';
-import axios from '../../axios';
+import * as burgerBuilderActions from '../../store/actions/index'
+
+import Order from '../../components/Order/Order'
+import Spinner from '../../components/UI/Spinner/Spinner'
+import axios from '../../axios'
 
 class Orders extends Component {
-   state = {
-      orders: [],
-      loading: false,
-   };
+   // state = {
+   //    orders: [],
+   //    loading: false,
+   // }
 
    componentDidMount() {
-      axios
-         .get('orders.json')
-         .then((response) => {
-            const fetchedOrders = [];
-            for (let key in response.data) {
-               fetchedOrders.push({
-                  ...response.data[key],
-                  id: key,
-               });
-            }
-            // console.log(fetchedOrders);
-            this.setState({ loading: false, orders: fetchedOrders });
-         })
-         .catch((error) => {
-            this.setState({ loading: false });
-         });
+      this.props.onSetOrders()
+      console.log(this.props.localOrders)
+   }
+
+   componentDidUpdate() {
+      console.log(this.props.localOrders)
    }
 
    // renderOrders = () => {
@@ -36,15 +30,10 @@ class Orders extends Component {
    // };
 
    render() {
-      // let orders = <Spinner />;
-
-      // if (this.state.orders) {
-      //    orders = this.renderOrders();
-      // }
-
       return (
          <div>
-            {this.state.orders.map((order) => (
+            {this.props.localLoading ? <Spinner /> : null}
+            {this.props.localOrders.map(order => (
                <Order
                   key={order.id}
                   ingredients={order.ingredients}
@@ -52,8 +41,21 @@ class Orders extends Component {
                />
             ))}
          </div>
-      );
+      )
    }
 }
 
-export default withRouter(Orders, axios);
+const mapStateToProps = state => {
+   return {
+      localOrders: state.orders.orders,
+      localLoading: state.orders.loading,
+   }
+}
+
+const mapDispatchToProps = dispatch => {
+   return {
+      onSetOrders: () => dispatch(burgerBuilderActions.setOrders()),
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Orders, axios))
