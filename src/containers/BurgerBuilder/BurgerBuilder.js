@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import axios from '../../axios'
 import { connect } from 'react-redux'
 
-import * as burgerBuilderActions from '../../store/actions/index'
+import * as actions from '../../store/actions/index'
 
 import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
@@ -80,6 +80,7 @@ class BurgerBuilder extends Component {
       // queryParams.push('price=' + this.props.localPrice);
       // console.log(queryParams);
       // const queryString = queryParams.join('&');
+      this.props.onInitPurchase()
       this.props.history.push('/checkout')
    }
 
@@ -192,11 +193,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
    return {
       onIngredientAdded: ingredientName =>
-         dispatch(burgerBuilderActions.addIngredient(ingredientName)),
+         dispatch(actions.addIngredient(ingredientName)),
       onIngredientRemoved: ingredientName => {
-         dispatch(burgerBuilderActions.removeIngredient(ingredientName))
+         dispatch(actions.removeIngredient(ingredientName))
       },
-      onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients()),
+      onInitIngredients: () => dispatch(actions.initIngredients()),
+      onInitPurchase: () => dispatch(actions.purchaseInit()),
    }
 }
 
