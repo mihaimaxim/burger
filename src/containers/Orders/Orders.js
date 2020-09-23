@@ -9,11 +9,6 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 import axios from '../../axios'
 
 class Orders extends Component {
-   // state = {
-   //    orders: [],
-   //    loading: false,
-   // }
-
    componentDidMount() {
       this.props.onSetOrders()
       console.log(this.props.localOrders)
@@ -22,12 +17,6 @@ class Orders extends Component {
    componentDidUpdate() {
       console.log(this.props.localOrders)
    }
-
-   // renderOrders = () => {
-   //    for (let key in this.state.orders) {
-   //       return <Order ingredients={this.state.orders[key].ingredients} />;
-   //    }
-   // };
 
    render() {
       return (
