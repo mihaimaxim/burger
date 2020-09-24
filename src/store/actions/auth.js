@@ -33,11 +33,9 @@ export const auth = (email, password, signInMode) => {
          returnSecureToken: true,
       }
 
-      let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?' + 'key=${key}`
+      let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`
       if (signInMode) {
-         url =
-            'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?' +
-            'key=AIzaSyAKeGX0NAhdZJTE2u_PPuNZROMD7WNFQeA'
+         url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${key}`
       }
 
       axios
