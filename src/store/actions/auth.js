@@ -1,4 +1,5 @@
 import axios from 'axios'
+import key from '../../keys.js'
 
 import * as actionTypes from './actionsTypes'
 
@@ -32,9 +33,7 @@ export const auth = (email, password, signInMode) => {
          returnSecureToken: true,
       }
 
-      let url =
-         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?' +
-         'key=AIzaSyAKeGX0NAhdZJTE2u_PPuNZROMD7WNFQeA'
+      let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?' + 'key=${key}`
       if (signInMode) {
          url =
             'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?' +
