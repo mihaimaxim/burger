@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
+import Spinner from '../../components/UI/Spinner/Spinner'
 import * as actions from '../../store/actions/index'
 
 import classes from './Auth.module.css'
@@ -49,13 +50,9 @@ class Auth extends Component {
       signInMode: true,
    }
 
-   componentDidMount() {
-      console.log(this.state.signInMode)
-   }
+   componentDidMount() {}
 
-   componentDidUpdate() {
-      console.log(this.state.signInMode)
-   }
+   componentDidUpdate() {}
 
    checkValidity = (value, rules) => {
       let isValid = true
@@ -140,7 +137,7 @@ class Auth extends Component {
          })
       }
 
-      const form = formElementsArray.map(formElement => (
+      let form = formElementsArray.map(formElement => (
          <Input
             key={formElement.id}
             elementType={formElement.config.elementType}
@@ -155,9 +152,21 @@ class Auth extends Component {
          />
       ))
 
+      if (this.props.localLoading) {
+         form = <Spinner />
+      }
+
+      let errorMessage = null
+
+      if (this.props.localError) {
+         errorMessage = <p style={{ color: 'red' }}>{this.props.localError.message}</p>
+      }
+
       return (
          <div className={classes.Auth}>
             <form onSubmit={this.submitHandler}>
+               {/* {this.props.localLoading ? <Spinner /> : form} */}
+               {errorMessage}
                {form}
                <Button btnType='Success'>
                   {this.state.signInMode ? 'SIGN IN' : 'SIGN UP'}
@@ -171,6 +180,15 @@ class Auth extends Component {
    }
 }
 
+const mapStateToProps = state => {
+   return {
+      localToken: state.auth.token,
+      localUserId: state.auth.userId,
+      localError: state.auth.error,
+      localLoading: state.auth.loading,
+   }
+}
+
 const mapDispatchToProps = dispatch => {
    return {
       onAuth: (email, password, signInMode) =>
@@ -178,4 +196,4 @@ const mapDispatchToProps = dispatch => {
    }
 }
 
-export default connect(null, mapDispatchToProps)(Auth)
+export default connect(mapStateToProps, mapDispatchToProps)(Auth)

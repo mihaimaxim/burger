@@ -11,15 +11,20 @@ import axios from '../../axios'
 class Orders extends Component {
    componentDidMount() {
       this.props.onSetOrders()
-      console.log(this.props.localOrders)
    }
 
-   componentDidUpdate() {
-      console.log(this.props.localOrders)
-   }
+   componentDidUpdate() {}
 
    render() {
-      let orders = <Spinner />
+      let orders = this.props.localError ? (
+         <div style={{ textAlign: 'center', margin: '15px', padding: '15px' }}>
+            <p>Orders can't be loaded!</p>
+            <p>You should authenticate!</p>
+         </div>
+      ) : (
+         <Spinner />
+      )
+
       if (!this.props.localLoading) {
          orders = this.props.localOrders.map(order => (
             <Order
@@ -37,6 +42,7 @@ const mapStateToProps = state => {
    return {
       localOrders: state.orders.orders,
       localLoading: state.orders.loading,
+      localError: state.orders.error,
    }
 }
 

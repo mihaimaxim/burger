@@ -4,6 +4,7 @@ const initialState = {
    orders: [],
    loading: false,
    purchased: false,
+   error: false,
 }
 
 const purchaseInit = (state, action) => {
@@ -58,7 +59,7 @@ const fetchOrders = (state, action) => {
 const fetchOrdersFail = (state, action) => {
    return {
       ...state,
-      loading: false,
+      error: action.error,
    }
 }
 

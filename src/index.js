@@ -7,6 +7,7 @@ import thunk from 'redux-thunk'
 
 import burgerBuilderReducer from './store/reducers/burgerBuilder'
 import ordersReducer from './store/reducers/order'
+import authReducer from './store/reducers/auth'
 
 import './index.css'
 import App from './containers/App'
@@ -15,6 +16,7 @@ import * as serviceWorker from './serviceWorker'
 const rootReducer = combineReducers({
    burger: burgerBuilderReducer,
    orders: ordersReducer,
+   auth: authReducer,
 })
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
