@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import asyncComponent from '../HOCs/asyncComponent/asyncComponent'
 
 import Layout from '../HOCs/Layout/Layout'
 import BurgerBuilder from './BurgerBuilder/BurgerBuilder'
-import Checkout from './Checkout/Checkout'
-import Orders from './Orders/Orders'
-import Auth from './Auth/Auth'
 import Logout from './Auth/Logout/Logout'
 
 import * as actions from '../store/actions/index'
+
+const asyncCheckout = asyncComponent(() => {
+   return import('../containers/Checkout/Checkout')
+})
+
+const asyncAuth = asyncComponent(() => {
+   return import('../containers/Auth/Auth')
+})
+
+const asyncOrders = asyncComponent(() => {
+   return import('../containers/Orders/Orders')
+})
 
 class App extends Component {
    // state = {
@@ -23,7 +33,7 @@ class App extends Component {
    render() {
       let routes = (
          <Switch>
-            <Route path='/auth' component={Auth} />
+            <Route path='/auth' component={asyncAuth} />
             <Route path='/' exact component={BurgerBuilder} />
             <Redirect to='/' />
          </Switch>
@@ -32,8 +42,9 @@ class App extends Component {
       if (this.props.isAuthenticated) {
          routes = (
             <Switch>
-               <Route path='/checkout' component={Checkout} />
-               <Route path='/orders' component={Orders} />
+               <Route path='/checkout' component={asyncCheckout} />
+               <Route path='/auth' component={asyncAuth} />
+               <Route path='/orders' component={asyncOrders} />
                <Route path='/logout' component={Logout} />
                <Route path='/' exact component={BurgerBuilder} />
                <Redirect to='/' />
@@ -61,4 +72,4 @@ const mapDispatchToProps = dispatch => {
    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

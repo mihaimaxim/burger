@@ -24,12 +24,12 @@ class BurgerBuilder extends Component {
 
    componentDidMount() {
       this.props.onInitIngredients()
-      console.log(this.props)
+      // console.log(this.props)
    }
 
-   componentWillUnmount() {
-      console.log(this.props)
-   }
+   // componentWillUnmount() {
+   //    console.log(this.props)
+   // }
 
    // updatePurchaseState = () => {
    //    const ingredients = {
@@ -124,9 +124,9 @@ class BurgerBuilder extends Component {
    //    this.updatePurchaseState(nextIngredients);
    // };
 
-   componentDidUpdate() {
-      console.log(this.props.localIngredients)
-   }
+   // componentDidUpdate() {
+   //    console.log(this.props.localIngredients)
+   // }
 
    render() {
       const disabledInfo = {
@@ -193,7 +193,7 @@ const mapStateToProps = state => {
       localIngredients: state.burger.ingredients,
       localPrice: state.burger.price,
       localError: state.burger.error,
-      isAuthenticated: state.auth.token != null,
+      isAuthenticated: state.auth.token !== null,
    }
 }
 

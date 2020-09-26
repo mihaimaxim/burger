@@ -10,12 +10,9 @@ import axios from '../../axios'
 class Orders extends Component {
    componentDidMount() {
       this.props.onSetOrders(this.props.localToken, this.props.localUserId)
-      console.log(this.props.localOrders)
    }
 
-   componentDidUpdate() {
-      console.log(this.props.localOrders)
-   }
+   componentDidUpdate() {}
 
    render() {
       // let orders = this.props.localError ? (
