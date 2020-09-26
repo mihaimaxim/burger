@@ -53,13 +53,15 @@ const fetchOrders = (state, action) => {
       ...state,
       orders: action.orders,
       loading: false,
+      error: null,
    }
 }
 
 const fetchOrdersFail = (state, action) => {
    return {
       ...state,
-      error: action.error,
+      loading: false,
+      error: true,
    }
 }
 

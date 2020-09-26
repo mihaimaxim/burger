@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
@@ -6,7 +8,6 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 import * as actions from '../../store/actions/index'
 
 import classes from './Auth.module.css'
-import { connect } from 'react-redux'
 
 class Auth extends Component {
    state = {
@@ -50,7 +51,11 @@ class Auth extends Component {
       signInMode: true,
    }
 
-   componentDidMount() {}
+   componentDidMount() {
+      if (!this.props.isBuildingBurger && this.props.authRedirectPath !== '/') {
+         this.props.onSetAuthRedirectPath()
+      }
+   }
 
    componentDidUpdate() {}
 
@@ -162,6 +167,12 @@ class Auth extends Component {
          errorMessage = <p style={{ color: 'red' }}>{this.props.localError.message}</p>
       }
 
+      let authRedirect = null
+
+      if (this.props.isAuthenticated) {
+         authRedirect = <Redirect to={this.props.authRedirectPath} />
+      }
+
       return (
          <div className={classes.Auth}>
             <form onSubmit={this.submitHandler}>
@@ -175,6 +186,7 @@ class Auth extends Component {
             <Button btnType='Danger' clicked={this.toggleSigningMode}>
                Toggle signing mode
             </Button>
+            {authRedirect}
          </div>
       )
    }
@@ -186,6 +198,9 @@ const mapStateToProps = state => {
       localUserId: state.auth.userId,
       localError: state.auth.error,
       localLoading: state.auth.loading,
+      isAuthenticated: state.auth.token != null,
+      isBuildingBurger: state.burger.building,
+      authRedirectPath: state.auth.authRedirectPath,
    }
 }
 
@@ -193,6 +208,7 @@ const mapDispatchToProps = dispatch => {
    return {
       onAuth: (email, password, signInMode) =>
          dispatch(actions.auth(email, password, signInMode)),
+      onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
    }
 }
 

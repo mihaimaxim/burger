@@ -114,9 +114,10 @@ class ContactData extends Component {
          ingredients: this.props.localIngredients,
          price: this.props.localPrice,
          orderData: formData,
+         userId: this.props.locaUserId,
       }
 
-      this.props.onOrderBurger(order)
+      this.props.onOrderBurger(order, this.props.localToken)
    }
 
    checkValidity = (value, rules) => {
@@ -222,12 +223,15 @@ const mapStateToProps = state => {
       localIngredients: state.burger.ingredients,
       localPrice: state.burger.price,
       localLoading: state.orders.loading,
+      localToken: state.auth.token,
+      locaUserId: state.auth.userId,
    }
 }
 
 const mapDispatchToProps = dispatch => {
    return {
-      onOrderBurger: orderData => dispatch(orderActions.purchaseBurger(orderData)),
+      onOrderBurger: (orderData, token) =>
+         dispatch(orderActions.purchaseBurger(orderData, token)),
    }
 }
 

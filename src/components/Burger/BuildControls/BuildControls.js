@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 
-import BuildControl from './BuildControl/BuildControl';
-import styles from './BuildControls.module.css';
+import BuildControl from './BuildControl/BuildControl'
+import styles from './BuildControls.module.css'
 
 const controls = [
    { label: 'Salad', type: 'salad' },
    { label: 'Bacon', type: 'bacon' },
    { label: 'Cheese', type: 'cheese' },
    { label: 'Meat', type: 'meat' },
-];
+]
 
 const BuildControls = props => {
    return (
@@ -25,17 +25,16 @@ const BuildControls = props => {
                   subtracted={() => props.ingredientSub(ctrl.type)}
                   disabled={props.disabled[ctrl.type]}
                />
-            );
+            )
          })}
          <button
             className={styles.OrderButton}
             disabled={!props.purchasable}
-            onClick={props.purchasing}
-         >
-            ORDER NOW
+            onClick={props.purchasing}>
+            {!props.isAuthenticated ? 'AUTHENTICATE!' : 'ORDER NOW'}
          </button>
       </div>
-   );
-};
+   )
+}
 
-export default BuildControls;
+export default BuildControls
